@@ -3,130 +3,744 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alexandre Kaburaki - Portfólio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="description" content="Alexandre Kaburaki — profissional de TI com foco em cibersegurança, arquitetura de soluções e desenvolvimento de aplicações web.">
+    <meta name="author" content="Alexandre Kaburaki">
+    <meta property="og:title" content="Alexandre Kaburaki — Portfólio">
+    <meta property="og:description" content="Portfólio de soluções em cibersegurança e aplicações web.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <title>Alexandre Kaburaki — Portfólio</title>
+
+    <!-- Favicon SVG inline (sem arquivo externo) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%236366f1'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'>AK</text></svg>">
+
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/lucide.css">
+
     <style>
+        /* ========== Variáveis ========== */
+        :root {
+            --bg-primary:   #0a0a0f;
+            --bg-secondary:  #111118;
+            --bg-card:       #16161f;
+            --bg-elevated:   #1c1c28;
+            --border:        #262636;
+            --border-hover:  #363650;
+            --text-primary:  #f0f0f5;
+            --text-secondary:#a0a0b5;
+            --text-muted:    #6b6b80;
+            --accent:        #6366f1;
+            --accent-light:  #818cf8;
+            --accent-glow:   rgba(99,102,241,0.15);
+            --accent-2:      #06b6d4;
+            --gradient:      linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+            --gradient-text: linear-gradient(135deg, #818cf8 0%, #22d3ee 100%);
+            --radius:        14px;
+            --radius-sm:     10px;
+            --transition:    0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow:        0 4px 20px rgba(0,0,0,0.4);
+            --shadow-lg:     0 8px 40px rgba(0,0,0,0.5);
+            --max-width:     1080px;
+        }
+
+        /* ========== Reset ========== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
         body {
-            background-color: #1a1a1a;
-            color: #e5e7eb;
-            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
-        .section-title {
+
+        a { color: inherit; text-decoration: none; }
+
+        ::selection { background: var(--accent); color: #fff; }
+
+        /* ========== Utilitários ========== */
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+        .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(99,102,241,0.3);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent-light);
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            background: var(--gradient);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: var(--radius-sm);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(99,102,241,0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(99,102,241,0.45);
+        }
+        .btn-primary:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-ghost:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+        .btn-ghost:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        /* ========== Header ========== */
+        header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(10,10,15,0.75);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        header.scrolled {
+            background: rgba(10,10,15,0.92);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-mark {
+            width: 36px; height: 36px;
+            background: var(--gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
             position: relative;
-            display: inline-block;
-            margin-bottom: 2rem;
         }
-        .section-title::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -0.5rem;
-            left: 0;
-            width: 50%;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gradient);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .nav-toggle span {
+            width: 24px; height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+        .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ========== Hero ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -30%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(99,102,241,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%; left: -10%;
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(6,182,212,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+        .hero-text h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            margin: 20px 0 18px;
+        }
+        .hero-text p {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 32px;
+        }
+        .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+
+        .hero-avatar {
+            width: 220px; height: 220px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 60px rgba(99,102,241,0.3);
+            position: relative;
+        }
+        .hero-avatar::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 2px solid rgba(99,102,241,0.3);
+            animation: pulse-ring 3s ease-out infinite;
+        }
+        @keyframes pulse-ring {
+            0%   { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px; }
+        .hero-tag {
+            padding: 6px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .hero-tag:hover { border-color: var(--accent); color: var(--text-primary); }
+
+        /* ========== Sections ========== */
+        section { padding: 100px 0; }
+
+        .section-header {
+            margin-bottom: 56px;
+            text-align: center;
+        }
+        .section-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ========== About ========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+        }
+        .about-text strong { color: var(--text-primary); font-weight: 600; }
+
+        .about-skills {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            transition: var(--transition);
+        }
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        .skill-card i { font-size: 1.6rem; color: var(--accent-light); margin-bottom: 10px; display: block; }
+        .skill-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+        .skill-card span { font-size: 0.82rem; color: var(--text-muted); }
+
+        /* ========== Apps ========== */
+        #apps { background: var(--bg-secondary); }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .app-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
             height: 3px;
-            background-color: #3b82f6;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: var(--transition);
         }
-        .hover-scale {
-            transition: transform 0.3s ease;
+        .app-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
         }
-        .hover-scale:hover {
-            transform: scale(1.05);
+        .app-card:hover::before { transform: scaleX(1); }
+
+        .app-icon {
+            width: 52px; height: 52px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(99,102,241,0.25);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin-bottom: 20px;
+        }
+        .app-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+        .app-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; }
+        .app-card .btn-ghost { width: 100%; justify-content: center; }
+        .app-card .btn-ghost:hover { background: var(--accent-glow); border-color: var(--accent); color: var(--accent-light); }
+
+        /* ========== Contact ========== */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: var(--transition);
+        }
+        .contact-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .contact-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        .contact-icon {
+            width: 48px; height: 48px;
+            background: var(--accent-glow);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--accent-light);
+            flex-shrink: 0;
+        }
+        .contact-card h4 { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-bottom: 2px; }
+        .contact-card span { font-size: 1rem; font-weight: 600; }
+
+        /* ========== Footer ========== */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+        footer p { color: var(--text-muted); font-size: 0.88rem; }
+
+        /* ========== Scroll reveal ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== Back to top ========== */
+        .back-top {
+            position: fixed;
+            bottom: 24px; right: 24px;
+            width: 44px; height: 44px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            z-index: 90;
+            box-shadow: 0 4px 20px rgba(99,102,241,0.4);
+            border: none;
+        }
+        .back-top.show { opacity: 1; pointer-events: auto; }
+        .back-top:hover { transform: translateY(-3px); }
+
+        /* ========== Responsivo ========== */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 64px; left: 0; right: 0;
+                background: rgba(10,10,15,0.98);
+                backdrop-filter: blur(14px);
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.35s ease;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-links.open { max-height: 280px; padding: 12px 0; }
+            .nav-links li { width: 100%; text-align: center; }
+            .nav-links a { display: block; padding: 14px; border-bottom: 1px solid var(--border); }
+            .nav-links li:last-child a { border-bottom: none; }
+            .nav-toggle { display: flex; }
+
+            .hero-content { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .hero-avatar { order: -1; width: 160px; height: 160px; font-size: 3rem; }
+            .hero-text p { margin-left: auto; margin-right: auto; }
+            .hero-cta, .hero-tags { justify-content: center; }
+
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+
+            section { padding: 64px 0; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .hero-tags { display: none; }
+            .apps-grid { grid-template-columns: 1fr; }
+            .about-skills { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
-<body class="antialiased">
+<body>
+
     <!-- Header -->
-    <header class="bg-gray-900 py-6 shadow-lg">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-3xl font-bold text-blue-400">Alexandre Kaburaki</h1>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="#about" class="text-gray-300 hover:text-blue-400 transition">Sobre Mim</a></li>
-                    <li><a href="#apps" class="text-gray-300 hover:text-blue-400 transition">Minhas Aplicações</a></li>
-                    <li><a href="#contact" class="text-gray-300 hover:text-blue-400 transition">Contato</a></li>
-                </ul>
-            </nav>
-        </div>
+    <header id="header">
+        <nav class="container nav">
+            <a href="#hero" class="logo">
+                <span class="logo-mark">AK</span>
+                <span>Alexandre<span class="gradient-text">Kaburaki</span></span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#apps">Projetos</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4">Bem-vindo ao meu Portfólio</h2>
-            <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                Profissional de Tecnologia da Informação apaixonado por criar soluções inovadoras e impactantes. 
-            </p>
-            <a href="#about" class="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                Saiba Mais
-            </a>
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <span class="badge"><i class="lucide lucide-shield-check"></i> Cibersegurança &amp; Soluções de TI</span>
+                <h1>Soluções em <span class="gradient-text">segurança</span> e tecnologia que entregam impacto real</h1>
+                <p>Profissional de Tecnologia da Informação especializado em arquitetura de cibersegurança, redes e desenvolvimento de aplicações web funcionais.</p>
+                <div class="hero-cta">
+                    <a href="#apps" class="btn-primary">
+                        Ver Projetos <i class="lucide lucide-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn-ghost">
+                        <i class="lucide lucide-mail"></i> Contato
+                    </a>
+                </div>
+                <div class="hero-tags">
+                    <span class="hero-tag">Cibersegurança</span>
+                    <span class="hero-tag">Arquitetura de Soluções</span>
+                    <span class="hero-tag">Redes &amp; Telecom</span>
+                    <span class="hero-tag">Desenvolvimento Web</span>
+                </div>
+            </div>
+            <div class="hero-avatar">AK</div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold section-title">Sobre Mim</h2>
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-6 md:mb-0">
-                    <p class="text-gray-300 leading-relaxed">
-                        Sou Alexandre Kaburaki, um profissional de Tecnologia da Informação dedicado a desenvolver soluções que combinam inovação e segurança. Com experiência em arquitetura de solução de cybersegurança, redes e telecomunicação, busco sempre entregar valor através de uma solução inteligente e segura.
-                    </p>
-                    <a href="https://www.linkedin.com/in/alexandrekaburaki/" target="_blank" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                        Veja meu LinkedIn
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Sobre <span class="gradient-text">Mim</span></h2>
+                <p>Uma trajetória dedicada à segurança, inovação e entrega de valor.</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>Sou <strong>Alexandre Kaburaki</strong>, profissional de Tecnologia da Informação com foco em <strong>cibersegurança</strong> e <strong>arquitetura de soluções</strong>. Minha experiência abrange redes, telecomunicações e desenvolvimento de aplicações práticas.</p>
+                    <p>Busco sempre entregar valor por meio de soluções inteligentes, seguras e alinhadas às necessidades de cada projeto — unindo visão técnica e preocupação com o impacto real.</p>
+                    <a href="https://www.linkedin.com/in/alexandrekaburaki/" target="_blank" rel="noopener" class="btn-primary">
+                        <i class="lucide lucide-linkedin"></i> Ver LinkedIn
                     </a>
                 </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="w-64 h-64 bg-gray-700 rounded-full flex items-center justify-center hover-scale">
-                        <span class="text-2xl font-bold text-blue-400">AK</span>
+                <div class="about-skills reveal">
+                    <div class="skill-card">
+                        <i class="lucide lucide-shield"></i>
+                        <h4>Cibersegurança</h4>
+                        <span>Arquitetura &amp; pré-vendas</span>
+                    </div>
+                    <div class="skill-card">
+                        <i class="lucide lucide-network"></i>
+                        <h4>Redes &amp; Telecom</h4>
+                        <span>Infraestrutura &amp; conectividade</span>
+                    </div>
+                    <div class="skill-card">
+                        <i class="lucide lucide-code"></i>
+                        <h4>Desenvolvimento Web</h4>
+                        <span>Aplicações funcionais</span>
+                    </div>
+                    <div class="skill-card">
+                        <i class="lucide lucide-lightbulb"></i>
+                        <h4>Soluções de TI</h4>
+                        <span>Do conceito à entrega</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Applications Section -->
-    <section id="apps" class="py-20 bg-gray-900">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold section-title">Minhas Aplicações</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover-scale">
-                    <h3 class="text-xl font-semibold mb-2">Controle de Medicação</h3>
-                    <p class="text-gray-300 mb-4">
-                        Uma aplicação web para gerenciar e acompanhar o uso de remedio (hormonio do crescimento) de forma prática e organizada.
-                    </p>
-                    <a href="http://remedio.kaburaki.com.br" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                        Acessar Aplicação
+    <!-- Apps -->
+    <section id="apps">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Meus <span class="gradient-text">Projetos</span></h2>
+                <p>Aplicações web desenvolvidas para resolver problemas reais de forma simples e eficiente.</p>
+            </div>
+            <div class="apps-grid">
+                <div class="app-card reveal">
+                    <div class="app-icon"><i class="lucide lucide-pill"></i></div>
+                    <h3>Controle de Medicação</h3>
+                    <p>Aplicação web para gerenciar e acompanhar o uso de medicamentos — incluindo hormônio do crescimento — de forma prática e organizada.</p>
+                    <a href="http://remedio.kaburaki.com.br" target="_blank" rel="noopener" class="btn-ghost">
+                        Acessar aplicação <i class="lucide lucide-external-link"></i>
                     </a>
                 </div>
-                <div class="bg-gray-800 p-6 rounded-lg shadow-lg hover-scale">
-                    <h3 class="text-xl font-semibold mb-2">Controle de Gastos - Futebol</h3>
-                    <p class="text-gray-300 mb-4">
-                        Uma ferramenta para organizar os gastos relacionados de uma quadra de futebol, facilitando a gestão financeira.
-                    </p>
-                    <a href="http://fut.kaburaki.com.br" target="_blank" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                        Acessar Aplicação
+                <div class="app-card reveal">
+                    <div class="app-icon"><i class="lucide lucide-trending-up"></i></div>
+                    <h3>Controle de Gastos — Futebol</h3>
+                    <p>Ferramenta para organizar e acompanhar os gastos relacionados a uma quadra de futebol, facilitando a gestão financeira do empreendimento.</p>
+                    <a href="http://fut.kaburaki.com.br" target="_blank" rel="noopener" class="btn-ghost">
+                        Acessar aplicação <i class="lucide lucide-external-link"></i>
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold section-title">Contato</h2>
-            <div class="text-gray-300">
-                <p class="mb-2"><strong>Nome:</strong> Alexandre Kaburaki</p>
-                <p class="mb-2"><strong>Email:</strong> <a href="mailto:alexandre.kaburaki@example.com" class="text-blue-400 hover:underline">alexandre@kaburaki.com.br</a></p>
-                <p class="mb-2"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/alexandrekaburaki/" target="_blank" class="text-blue-400 hover:underline">AlexandreKaburaki</a></p>
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Entre em <span class="gradient-text">Contato</span></h2>
+                <p>Disponível para conversar sobre projetos, soluções e oportunidades.</p>
+            </div>
+            <div class="contact-wrapper">
+                <a href="mailto:alexandre@kaburaki.com.br" class="contact-card reveal" style="text-decoration:none">
+                    <div class="contact-icon"><i class="lucide lucide-mail"></i></div>
+                    <div>
+                        <h4>E-mail</h4>
+                        <span>alexandre@kaburaki.com.br</span>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/alexandrekaburaki/" target="_blank" rel="noopener" class="contact-card reveal" style="text-decoration:none">
+                    <div class="contact-icon"><i class="lucide lucide-linkedin"></i></div>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <span>Alexandre Kaburaki</span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 py-6">
-        <div class="container mx-auto px-4 text-center text-gray-400">
-            <p>&copy; 2025 Alexandre Kaburaki. Todos os direitos reservados.</p>
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Alexandre Kaburaki. Todos os direitos reservados.</p>
         </div>
     </footer>
+
+    <!-- Back to top -->
+    <button class="back-top" id="backTop" aria-label="Voltar ao topo">
+        <i class="lucide lucide-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script>
+        // Ano dinâmico
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Header scroll
+        const header = document.getElementById('header');
+        const backTop = document.getElementById('backTop');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 20);
+            backTop.classList.toggle('show', window.scrollY > 400);
+        });
+
+        // Menu mobile
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        navToggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            navToggle.classList.toggle('open', open);
+            navToggle.setAttribute('aria-expanded', open);
+        });
+        // Fechar menu ao clicar em link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                navToggle.classList.remove('open');
+                navToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Back to top
+        backTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
